@@ -1,6 +1,4 @@
-import { CostSummary } from './CostSummary'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
+import { Typography, Container } from '@mui/material'
 
 export default function OrdersPage() {
   return (
