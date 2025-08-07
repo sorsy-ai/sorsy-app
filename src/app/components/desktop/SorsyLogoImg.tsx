@@ -1,6 +1,7 @@
-// Sorsy logo image component
+import Image from "next/image";
+
 export default function SorsyLogoImg({ style }: { style?: React.CSSProperties }) {
   return (
-    <img src="/sorsy-logo-white.png" alt="SORSY Logo" style={style} width={160} height={40} />
+    <Image src="/sorsy-logo-red.svg" alt="SORSY Logo" style={style} width={160} height={40} />
   );
 }

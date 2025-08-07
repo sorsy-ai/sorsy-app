@@ -1,13 +1,13 @@
 'use client'
 
-import { Box, Typography, Container, Grid } from '@mui/material'
+import { Box, Typography, Container } from '@mui/material'
 import { DashboardOverview } from './components/DashboardOverview'
 
 export default function Dashboard() {
   return (
     <Container maxWidth="lg">
       <Typography variant="h4" fontWeight="medium" mb={4}>
-       Dashboard
+       Hi John
       </Typography>
 
       <Box mb={6}>

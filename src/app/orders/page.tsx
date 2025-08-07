@@ -4,7 +4,7 @@ export default function OrdersPage() {
   return (
     <Container>
       <Typography variant="h4" fontWeight="medium" mb={4}>
-        Reports
+        Orders
       </Typography>
     </Container>
   );
