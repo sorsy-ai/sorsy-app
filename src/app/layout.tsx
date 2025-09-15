@@ -17,18 +17,18 @@ export const metadata: Metadata = {
 }
 
 const navItems = [
-  { text: 'Dashboard', href: '/', icon: <HomeOutlinedIcon sx={{ color: '#222', mr: 2 }} /> },
+  { text: 'Dashboard', href: '/', icon: <HomeOutlinedIcon sx={{ color: '#222', mr: 1, fontSize: 22 }} /> },
 ];
 
 const discoverItems = [
-  { text: 'Projects', href: '/projects', icon: <FolderOutlinedIcon sx={{ color: '#222', mr: 2 }} /> },
-  { text: 'Orders', href: '/orders', icon: <NotificationsNoneOutlinedIcon sx={{ color: '#222', mr: 2 }} /> },
-  { text: 'Factories', href: '/factories', icon: <InsertChartOutlinedIcon  sx={{ color: '#222', mr: 2 }} /> },
+  { text: 'Projects', href: '/projects', icon: <FolderOutlinedIcon sx={{ color: '#222', mr: 1, fontSize: 22 }} /> },
+  { text: 'Orders', href: '/orders', icon: <NotificationsNoneOutlinedIcon sx={{ color: '#222', mr: 1, fontSize: 22 }} /> },
+  { text: 'Factories', href: '/factories', icon: <InsertChartOutlinedIcon  sx={{ color: '#222', mr: 1, fontSize: 22 }} /> },
 ];
 
 const bottomItems = [
-  { text: 'Settings', href: '/settings', icon: <SettingsIcon sx={{ color: '#888', mr: 2 }} /> },
-  { text: 'Logout', href: '/logout', icon: <LogoutIcon sx={{ color: '#888', mr: 2 }} /> },
+  { text: 'Settings', href: '/settings', icon: <SettingsIcon sx={{ color: '#888', mr: 1, fontSize: 20 }} /> },
+  { text: 'Logout', href: '/logout', icon: <LogoutIcon sx={{ color: '#888', mr: 1, fontSize: 20 }} /> },
 ];
 
 export default function RootLayout({
@@ -43,7 +43,7 @@ export default function RootLayout({
         <Box
           sx={{
             width: '100%',
-            height: 64,
+            height: 56,
             borderBottom: '1px solid #eee',
             display: 'flex',
             alignItems: 'center',
@@ -52,28 +52,28 @@ export default function RootLayout({
             position: 'fixed',
             top: 0,
             left: 0,
-            px: 3, 
+            px: 2,
             boxSizing: 'border-box'
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', mr: 4 }}>
-            <SorsyLogoImg style={{ width: 140, height: 40 }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
+            <SorsyLogoImg style={{ width: 120, height: 32 }} />
           </Box>
           <Box sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
-            <Box sx={{ bgcolor: '#f5f5f5', borderRadius: 2, px: 2, py: 0.5, display: 'flex', alignItems: 'center', width: 350 }}>
-              <SearchIcon sx={{ color: '#888', mr: 1 }} />
-              <InputBase placeholder="Type to search" sx={{ width: '100%' }} />
+            <Box sx={{ bgcolor: '#f5f5f5', borderRadius: 2, px: 1.5, py: 0.25, display: 'flex', alignItems: 'center', width: 240 }}>
+              <SearchIcon sx={{ color: '#888', mr: 1, fontSize: 20 }} />
+              <InputBase placeholder="Type to search" sx={{ width: '100%', fontSize: 14 }} />
             </Box>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Badge badgeContent={2} color="error" sx={{ mr: 1 }}>
-              <MailOutlineOutlinedIcon sx={{ color: '#8B2323', fontSize: 28 }} />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Badge badgeContent={2} color="error" sx={{ mr: 0.5 }}>
+              <MailOutlineOutlinedIcon sx={{ color: '#8B2323', fontSize: 22 }} />
             </Badge>
             <IconButton>
-              <NotificationsNoneOutlinedIcon sx={{ color: '#222', fontSize: 28 }} />
+              <NotificationsNoneOutlinedIcon sx={{ color: '#222', fontSize: 22 }} />
             </IconButton>
             <Avatar
-              sx={{ width: 36, height: 36 }}
+              sx={{ width: 30, height: 30 }}
               src="https://randomuser.me/api/portraits/men/32.jpg"
               alt="User"
             />
@@ -85,23 +85,23 @@ export default function RootLayout({
             variant="permanent"
             anchor="left"
             sx={{
-              width: 260,
+              width: 250,
               flexShrink: 0,
               [`& .MuiDrawer-paper`]: {
-                width: 260,
+                width: 250,
                 boxSizing: 'border-box',
-                pt: 2,
-                pb: 2,
-                px: 2,
+                pt: 1.5,
+                pb: 1.5,
+                px: 3, // increased from 1 to add more padding on either side
                 bgcolor: '#fff',
                 borderRight: '1px solid #eee',
-                top: 64, 
-                height: 'calc(100vh - 64px)',
+                top: 56,
+                height: 'calc(100vh - 56px)',
               }
             }}
             PaperProps={{ elevation: 0 }}
           >
-            <Box sx={{ height: 24 }} />
+            <Box sx={{ height: 16 }} />
             <Button
               variant="contained"
               color="error"
@@ -110,24 +110,24 @@ export default function RootLayout({
                 borderRadius: 2,
                 textTransform: 'none',
                 fontWeight: 600,
-                mb: 3,
-                py: 1.2,
-                fontSize: 16,
+                mb: 2,
+                py: 0.7,
+                fontSize: 13,
               }}
             >
               + Connect New Brand
             </Button>
             {/* Main Nav */}
-            <List sx={{ mb: 2 }}>
+            <List sx={{ mb: 1 }}>
               {navItems.map(({ text, href, icon }) => (
                 <Link key={text} href={href} passHref legacyBehavior>
-                  <ListItem component="a" sx={{ color: '#222', py: 1.2, borderRadius: 2 }}>
+                  <ListItem component="a" sx={{ color: '#222', py: 0.7, borderRadius: 2 }}>
                     {icon}
                     <ListItemText
                       primary={text}
                       primaryTypographyProps={{
                         fontWeight: 500,
-                        fontSize: 16,
+                        fontSize: 14, 
                         color: '#222',
                       }}
                     />
@@ -136,19 +136,19 @@ export default function RootLayout({
               ))}
             </List>
             {/* Discover Section */}
-            <Typography variant="caption" sx={{ color: '#888', pl: 2, mb: 1, letterSpacing: 1 }}>
+            <Typography variant="caption" sx={{ color: '#888', pl: 1, mb: 0.5, letterSpacing: 1, fontSize: 12 }}>
               DISCOVER
             </Typography>
-            <List sx={{ mb: 2 }}>
+            <List sx={{ mb: 1 }}>
               {discoverItems.map(({ text, href, icon }) => (
                 <Link key={text} href={href} passHref legacyBehavior>
-                  <ListItem component="a" sx={{ color: '#222', py: 1.2, borderRadius: 2 }}>
+                  <ListItem component="a" sx={{ color: '#222', py: 0.7, borderRadius: 2 }}>
                     {icon}
                     <ListItemText
                       primary={text}
                       primaryTypographyProps={{
                         fontWeight: 500,
-                        fontSize: 16,
+                        fontSize: 14,
                         color: '#222',
                       }}
                     />
@@ -161,13 +161,13 @@ export default function RootLayout({
             <List>
               {bottomItems.map(({ text, href, icon }) => (
                 <Link key={text} href={href} passHref legacyBehavior>
-                  <ListItem component="a" sx={{ color: '#888', py: 1.2, borderRadius: 2 }}>
+                  <ListItem component="a" sx={{ color: '#888', py: 0.7, borderRadius: 2 }}>
                     {icon}
                     <ListItemText
                       primary={text}
                       primaryTypographyProps={{
                         fontWeight: 500,
-                        fontSize: 16,
+                        fontSize: 13,
                         color: '#888',
                       }}
                     />
@@ -183,13 +183,22 @@ export default function RootLayout({
               flexGrow: 1,
               bgcolor: '#fafbfc',
               minHeight: '100vh',
-              pt: '64px',
+              pt: '56px', 
               width: '100%',
               boxSizing: 'border-box',
               overflowX: 'auto',
             }}
           >
-            {children}
+            <Box
+              sx={{
+                width: '100%',
+                maxWidth: 700,
+                mx: 'auto',
+                px: { xs: 1, sm: 2, md: 2 },
+              }}
+            >
+              {children}
+            </Box>
           </Box>
         </Box>
       </body>
