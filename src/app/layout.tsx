@@ -193,7 +193,6 @@ export default function RootLayout({
               sx={{
                 width: '100%',
                 maxWidth: 700,
-                mx: 'auto',
                 px: { xs: 1, sm: 2, md: 2 },
               }}
             >

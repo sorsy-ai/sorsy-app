@@ -68,7 +68,7 @@ export function RightSidebar() {
       }}
     >
       {/* Notifications */}
-      <Typography variant="h6" fontWeight="bold" mb={1.5}>Notifications</Typography>
+      <Typography fontWeight={700} fontSize={15} mb={1}>Notifications</Typography>
       <List dense disablePadding>
         {notifications.map((n, i) => (
           <ListItem key={i} disableGutters sx={{ alignItems: 'flex-start', mb: 1 }}>
@@ -114,3 +114,15 @@ export function RightSidebar() {
     </Box>
   );
 }
+
+<Box
+  sx={{
+    display: 'flex',
+    flexDirection: 'row',
+    bgcolor: '#FAFBFC',
+    minHeight: '100vh',
+    overflowX: 'auto', // add this
+  }}
+>
+  {/* ...dashboard content... */}
+</Box>

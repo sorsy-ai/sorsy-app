@@ -1,7 +1,6 @@
 import { Box, Card, CardContent, Typography, Button, List, ListItem, Avatar } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-// Pill style map for dot and color
 const pillStyles: Record<string, { bg: string; color: string; dot: string }> = {
   Completed: { bg: '#ECFDF3', color: '#027A48', dot: '#12B76A' },
   'Sample Sent': { bg: '#FEF9C3', color: '#B54708', dot: '#FACC15' },
@@ -16,15 +15,15 @@ function StatusPill({ label }: { label: keyof typeof pillStyles }) {
         display: 'inline-flex',
         alignItems: 'center',
         gap: 1,
-        px: 1.5,
+        px: 1,
         py: 0.25,
-        borderRadius: '12px',
+        borderRadius: '10px',
         bgcolor: bg,
         minWidth: 0,
       }}
     >
-      <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: dot, mr: 0.5 }} />
-      <Typography sx={{ color, fontWeight: 600, fontSize: 13, fontFamily: 'Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif' }}>
+      <Box sx={{ width: 7, height: 7, borderRadius: '50%', bgcolor: dot, mr: 0.5 }} />
+      <Typography sx={{ color, fontWeight: 500, fontSize: 12, fontFamily: 'Plus Jakarta Sans, -apple-system, Roboto, Helvetica, sans-serif' }}>
         {label}
       </Typography>
     </Box>
@@ -53,150 +52,92 @@ const quotes = [
 
 export function DashboardOverview() {
   return (
-    <Box
-      sx={{
-        bgcolor: '#FAFBFC',
-        minHeight: '100vh',
-        p: 3,
-        width: '100%',
-        boxSizing: 'border-box',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-      }}
-    >
-      <Box sx={{ width: 900, ml: 0 }}>
-        {/* Projects Card */}
-        <Card
-          variant="outlined"
-          sx={{
-            borderRadius: 5,
-            border: '1px solid #E4E4E7',
-            bgcolor: '#FFF',
-            mb: 3,
-            boxShadow: 'none',
-            width: '100%',
-          }}
-        >
-          <CardContent>
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-              <Typography variant="h6" fontWeight="bold">Projects</Typography>
-              <Button size="small" sx={{ color: '#E60012', fontWeight: 600, textTransform: 'none' }}>See All Projects &gt;</Button>
-            </Box>
-            <Typography variant="body2" color="text.secondary" mb={2}>
-              Lorem ipsum dolor sit amet, consectetur adipis.
-            </Typography>
-            {projects.map((proj, idx) => (
-              <Box
-                key={proj.name}
-                display="flex"
-                alignItems="center"
-                py={1.5}
-                borderBottom={idx !== projects.length - 1 ? '1px solid #f0f0f0' : 'none'}
-                sx={{ gap: 4 }}
-              >
-                <Box sx={{ minWidth: 120 }}>
-                  <StatusPill label={proj.status as keyof typeof pillStyles} />
-                </Box>
-                <Box flex={1} minWidth={180} mr={2}>
-                  <Typography fontWeight="bold" fontSize={15}>{proj.name}</Typography>
-                  <Typography variant="caption" color="text.secondary">Collection: {proj.collection}</Typography>
-                </Box>
-                <Box minWidth={110} mr={2}>
-                  <Typography fontWeight="bold">{proj.price}</Typography>
-                  <Typography variant="caption" color="text.secondary">{proj.date}</Typography>
-                </Box>
-                <Box minWidth={160}>
-                  <Typography variant="body2" color="text.secondary">{proj.factory}</Typography>
-                </Box>
+    <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
+      {/* Projects Card */}
+      <Card sx={{ borderRadius: 2, mb: 2, boxShadow: 'none', border: '1px solid #E4E4E7' }}>
+        <CardContent sx={{ p: 2 }}>
+          <Typography fontWeight={700} fontSize={17} mb={0.5}>Projects</Typography>
+          <Typography fontSize={13} color="text.secondary" mb={1}>
+            Lorem ipsum dolor sit amet, consectetur adipis.
+          </Typography>
+          {projects.map((proj, idx) => (
+            <Box
+              key={proj.name}
+              display="flex"
+              alignItems="center"
+              py={1}
+              borderBottom={idx !== projects.length - 1 ? '1px solid #f0f0f0' : 'none'}
+              sx={{ gap: 2 }}
+            >
+              <Box sx={{ minWidth: 100 }}>
+                <StatusPill label={proj.status as keyof typeof pillStyles} />
               </Box>
-            ))}
+              <Box flex={1} minWidth={120} mr={1}>
+                <Typography fontWeight={600} fontSize={14}>{proj.name}</Typography>
+                <Typography fontSize={12} color="text.secondary">Collection: {proj.collection}</Typography>
+              </Box>
+              <Box minWidth={80} mr={1}>
+                <Typography fontWeight={600} fontSize={14}>{proj.price}</Typography>
+                <Typography fontSize={12} color="text.secondary">{proj.date}</Typography>
+              </Box>
+              <Box minWidth={100}>
+                <Typography fontSize={13} color="text.secondary">{proj.factory}</Typography>
+              </Box>
+            </Box>
+          ))}
+        </CardContent>
+      </Card>
+      {/* Responsive grid for Tasks and Quotes */}
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+          gap: 2,
+        }}
+      >
+        {/* Tasks Card */}
+        <Card sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid #E4E4E7' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Typography fontWeight={700} fontSize={16} mb={1}>Tasks</Typography>
+            <List disablePadding>
+              {tasks.map((task) => (
+                
+                <ListItem key={task} disableGutters sx={{ mb: 0.5, px: 0 }}>
+                   <CheckCircleOutlineIcon sx={{ color: '#E60012', mr: 1 }} />
+                  <Typography fontSize={13}>{task}</Typography>
+                </ListItem>
+              ))}
+            </List>
+            <Button sx={{ fontSize: 12, mt: 1, textTransform: 'none', color: '#E60012', fontWeight: 500 }}>
+              View all Tasks &gt;
+            </Button>
           </CardContent>
         </Card>
-       {/* Tasks & Quotes side by side, both 50% width to match parent width */}
-<Box
-  sx={{
-    display: 'grid',
-    gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-    gap: 3,
-    width: '100%',
-    m: 0,
-  }}
->
-  {/* Left column (Tasks) */}
-  <Box sx={{ width: '100%', pl: 0 }}>
-    <Card
-      variant="outlined"
-      sx={{
-        borderRadius: 5,
-        border: '1px solid #E4E4E7',
-        bgcolor: '#FFF',
-        height: 340,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        boxShadow: 'none',
-        width: '100%',
-      }}
-    >
-      <CardContent sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h6" fontWeight="bold" mb={1}>Tasks</Typography>
-        <List disablePadding sx={{ flex: 1 }}>
-          {tasks.map((task) => (
-            <ListItem key={task} disableGutters sx={{ mb: 1, px: 0 }}>
-              <CheckCircleOutlineIcon sx={{ color: '#E60012', mr: 1 }} />
-              <Typography>{task}</Typography>
-            </ListItem>
-          ))}
-        </List>
-        <Button size="small" sx={{ color: '#E60012', fontWeight: 600, textTransform: 'none', mt: 1, alignSelf: 'flex-start' }}>
-          View all Tasks &gt;
-        </Button>
-      </CardContent>
-    </Card>
-  </Box>
-
-  {/* Right column (Quotes) */}
-  <Box sx={{ width: '100%', pr: 0 }}>
-    <Card
-      variant="outlined"
-      sx={{
-        borderRadius: 5,
-        border: '1px solid #E4E4E7',
-        bgcolor: '#FFF',
-        height: 340,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        boxShadow: 'none',
-        width: '100%',
-      }}
-    >
-      <CardContent sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h6" fontWeight="bold" mb={1}>Quotes</Typography>
-        <Typography variant="body2" color="text.secondary" mb={2}>Lorem ipsum dolor sit ametis.</Typography>
-        <List disablePadding sx={{ flex: 1 }}>
-          {quotes.map((q) => (
-            <ListItem key={q.name} disableGutters sx={{ mb: 1, px: 0 }}>
-              <Avatar src={q.avatar} sx={{ width: 32, height: 32, mr: 1 }} />
-              <Box flex={1}>
-                <Typography fontWeight="bold" fontSize={15}>{q.name}</Typography>
-                <Typography variant="caption" color="text.secondary">{q.project}</Typography>
-              </Box>
-              <Box textAlign="right">
-                <Typography fontWeight="bold">{q.amount}</Typography>
-                <Typography variant="caption" color="text.secondary">{q.location}</Typography>
-              </Box>
-            </ListItem>
-          ))}
-        </List>
-        <Button size="small" sx={{ color: '#888', fontWeight: 600, textTransform: 'none', mt: 1, alignSelf: 'flex-start' }}>
-          SEE ALL QUOTES &gt;
-        </Button>
-      </CardContent>
-    </Card>
-  </Box>
-</Box>
+        {/* Quotes Card */}
+        <Card sx={{ borderRadius: 2, boxShadow: 'none', border: '1px solid #E4E4E7' }}>
+          <CardContent sx={{ p: 2 }}>
+            <Typography fontWeight={700} fontSize={16} mb={1}>Quotes</Typography>
+            <Typography fontSize={12} color="text.secondary" mb={1}>Lorem ipsum dolor sit ametis.</Typography>
+            <List disablePadding>
+              {quotes.map((q) => (
+                <ListItem key={q.name} disableGutters sx={{ mb: 0.5, px: 0 }}>
+                  <Avatar src={q.avatar} sx={{ width: 24, height: 24, mr: 1 }} />
+                  <Box flex={1}>
+                    <Typography fontWeight={600} fontSize={13}>{q.name}</Typography>
+                    <Typography fontSize={11} color="text.secondary">{q.project}</Typography>
+                  </Box>
+                  <Box textAlign="right">
+                    <Typography fontWeight={600} fontSize={13}>{q.amount}</Typography>
+                    <Typography fontSize={11} color="text.secondary">{q.location}</Typography>
+                  </Box>
+                </ListItem>
+              ))}
+            </List>
+            <Button sx={{ fontSize: 12, mt: 1, textTransform: 'none', color: '#888', fontWeight: 500 }}>
+              SEE ALL QUOTES &gt;
+            </Button>
+          </CardContent>
+        </Card>
       </Box>
     </Box>
   );
