@@ -6,8 +6,6 @@ import {
   Typography,
   Button,
   Chip,
-  Card,
-  CardContent,
   Avatar,
   Table,
   TableBody,
@@ -15,7 +13,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
 } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -26,6 +24,7 @@ import FolderIcon from "@mui/icons-material/Folder";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { StyledCard } from "../components/common/styledCard";
 
 /**
  * =====================
@@ -127,23 +126,8 @@ const MILESTONES: Milestone[] = [
  * Small, Reusable UI Primitives
  * =====================
  */
-const SectionCard: React.FC<React.PropsWithChildren<{ sx?: SxProps<Theme> }>> = ({ children, sx }) => (
-  <Card
-    sx={{
-      borderRadius: TOKENS.radius.md,
-      border: `1px solid ${TOKENS.color.border}`,
-      bgcolor: TOKENS.color.surface,
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "stretch",
-      ...sx,
-    }}
-  >
-    {children}
-  </Card>
-);
-
-type PrimaryButtonProps = React.PropsWithChildren<{ sx?: SxProps<Theme> }> & Omit<React.ComponentProps<typeof Button>, "sx">;
+type PrimaryButtonProps = React.PropsWithChildren<{ sx?: SxProps<Theme> }> &
+  Omit<React.ComponentProps<typeof Button>, "sx">;
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({ children, sx, ...props }) => (
   <Button
@@ -187,7 +171,15 @@ const StatusChip: React.FC<{ label: StatusLabel | string }> = memo(function Stat
       aria-label={`status ${label}`}
     >
       <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: pal.dot }} />
-      <Typography sx={{ fontSize: 12, fontWeight: 500, lineHeight: "20px", color: pal.fg, fontFamily: TOKENS.font.body }}>
+      <Typography
+        sx={{
+          fontSize: 12,
+          fontWeight: 500,
+          lineHeight: "20px",
+          color: pal.fg,
+          fontFamily: TOKENS.font.body,
+        }}
+      >
         {label}
       </Typography>
     </Box>
@@ -195,7 +187,12 @@ const StatusChip: React.FC<{ label: StatusLabel | string }> = memo(function Stat
 });
 StatusChip.displayName = "StatusChip";
 
-const InfoItem: React.FC<{ icon: React.ReactNode; text: string; color?: string; upper?: boolean }> = ({ icon, text, color = TOKENS.color.brand.primary, upper = true }) => (
+const InfoItem: React.FC<{
+  icon: React.ReactNode;
+  text: string;
+  color?: string;
+  upper?: boolean;
+}> = ({ icon, text, color = TOKENS.color.brand.primary, upper = true }) => (
   <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
     <Box sx={{ color: "#1C1C1C", fontSize: 18 }} aria-hidden>
       {icon}
@@ -216,9 +213,33 @@ const InfoItem: React.FC<{ icon: React.ReactNode; text: string; color?: string; 
   </Box>
 );
 
-const CertBadge: React.FC<{ label: string; color: string; textColor: string }> = ({ label, color, textColor }) => (
-  <Box sx={{ borderRadius: 8, bgcolor: color, display: "flex", px: 1, py: 0.25, justifyContent: "center", alignItems: "center" }}>
-    <Typography sx={{ color: textColor, fontSize: 12, fontWeight: 500, lineHeight: "18px", fontFamily: TOKENS.font.alt }}>{label}</Typography>
+const CertBadge: React.FC<{ label: string; color: string; textColor: string }> = ({
+  label,
+  color,
+  textColor,
+}) => (
+  <Box
+    sx={{
+      borderRadius: 8,
+      bgcolor: color,
+      display: "flex",
+      px: 1,
+      py: 0.25,
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  >
+    <Typography
+      sx={{
+        color: textColor,
+        fontSize: 12,
+        fontWeight: 500,
+        lineHeight: "18px",
+        fontFamily: TOKENS.font.alt,
+      }}
+    >
+      {label}
+    </Typography>
   </Box>
 );
 
@@ -243,8 +264,21 @@ const DonutChart: React.FC<{
 
   return (
     <Box sx={{ position: "relative", width: size, height: size }}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} role="img" aria-label="Cost breakdown chart">
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={TOKENS.color.chart.base} strokeWidth={stroke} />
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        role="img"
+        aria-label="Cost breakdown chart"
+      >
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke={TOKENS.color.chart.base}
+          strokeWidth={stroke}
+        />
         {slices.map((s, i) => {
           const pct = s.value / total;
           const dash = C * pct;
@@ -267,12 +301,36 @@ const DonutChart: React.FC<{
           return el;
         })}
       </svg>
-      <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", textAlign: "center" }}>
-        <Typography sx={{ fontSize: 21, fontWeight: 700, lineHeight: "32px", color: TOKENS.color.text.primary, fontFamily: TOKENS.font.body }}>
+      <Box
+        sx={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          textAlign: "center",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: 21,
+            fontWeight: 700,
+            lineHeight: "32px",
+            color: TOKENS.color.text.primary,
+            fontFamily: TOKENS.font.body,
+          }}
+        >
           {centerTitle}
         </Typography>
         {centerSubtitle && (
-          <Typography sx={{ fontSize: 13, fontWeight: 400, lineHeight: "21px", color: TOKENS.color.text.secondary, fontFamily: TOKENS.font.body }}>
+          <Typography
+            sx={{
+              fontSize: 13,
+              fontWeight: 400,
+              lineHeight: "21px",
+              color: TOKENS.color.text.secondary,
+              fontFamily: TOKENS.font.body,
+            }}
+          >
             {centerSubtitle}
           </Typography>
         )}
@@ -287,242 +345,326 @@ const DonutChart: React.FC<{
  * =====================
  */
 const ProjectOverview: React.FC = () => (
-  <SectionCard sx={{ minHeight: 420, flex: 1 }}>
-    <CardContent sx={{ p: 3, position: "relative", flex: 1 }}>
-      {/* Title + CTA */}
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3 }}>
-        <Typography sx={{ fontSize: 18, fontWeight: 700, lineHeight: "24px", color: TOKENS.color.text.primary, fontFamily: TOKENS.font.heading }}>
-          Melina Sweater
-        </Typography>
-        <PrimaryButton>Edit Project</PrimaryButton>
-      </Box>
+  <StyledCard title="Melina Sweater" actions={<PrimaryButton>Edit Project</PrimaryButton>}>
+    {/* Meta */}
+    <InfoItem icon={<CalendarMonthIcon sx={{ fontSize: 18 }} />} text="august 15, 2025" />
+    <InfoItem icon={<BusinessIcon sx={{ fontSize: 18 }} />} text="LI FUNG FACTORY" />
+    <InfoItem icon={<Inventory2OutlinedIcon sx={{ fontSize: 18 }} />} text="5,000 UNITS" />
 
-      {/* Meta */}
-      <InfoItem icon={<CalendarMonthIcon sx={{ fontSize: 18 }} />} text="august 15, 2025" />
-      <InfoItem icon={<BusinessIcon sx={{ fontSize: 18 }} />} text="LI FUNG FACTORY" />
-      <InfoItem icon={<Inventory2OutlinedIcon sx={{ fontSize: 18 }} />} text="5,000 UNITS" />
-
-      {/* Certifications */}
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}>
-        <Box sx={{ color: "#1C1C1C", fontSize: 18 }} aria-hidden>
-          <LabelIcon sx={{ fontSize: 18 }} />
-        </Box>
-        {CERTIFICATIONS.map((c) => (
-          <CertBadge key={c.label} {...c} />
-        ))}
+    {/* Certifications */}
+    <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 3 }}>
+      <Box sx={{ color: "#1C1C1C", fontSize: 18 }} aria-hidden>
+        <LabelIcon sx={{ fontSize: 18 }} />
       </Box>
+      {CERTIFICATIONS.map((c) => (
+        <CertBadge key={c.label} {...c} />
+      ))}
+    </Box>
 
-      {/* Product Images */}
-      <Box sx={{ display: "flex", gap: 1, mb: 2, flexWrap: "wrap" }}>
-        {PRODUCT_IMAGES.map((src, idx) => (
-          <Box
-            key={idx}
-            component="img"
-            src={src}
-            alt={`product angle ${idx + 1}`}
-            loading="lazy"
-            sx={{ width: idx < 2 ? 60 : 65, height: idx < 2 ? 90 : 100, borderRadius: TOKENS.radius.lg, objectFit: "cover" }}
-          />
-        ))}
-      </Box>
+    {/* Product Images */}
+    <Box sx={{ display: "flex", gap: 1, mb: 2, flexWrap: "wrap" }}>
+      {PRODUCT_IMAGES.map((src, idx) => (
+        <Box
+          key={idx}
+          component="img"
+          src={src}
+          alt={`product angle ${idx + 1}`}
+          loading="lazy"
+          sx={{
+            width: idx < 2 ? 60 : 65,
+            height: idx < 2 ? 90 : 100,
+            borderRadius: TOKENS.radius.lg,
+            objectFit: "cover",
+          }}
+        />
+      ))}
+    </Box>
 
-      {/* Files link */}
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1, cursor: "pointer" }} role="button" aria-label="See all files">
-        <FolderIcon sx={{ color: "#1C1C1C", fontSize: 18 }} />
-        <Typography sx={{ fontSize: 13, fontWeight: 700, lineHeight: "18px", letterSpacing: "1px", textTransform: "uppercase", color: TOKENS.color.text.muted, fontFamily: TOKENS.font.body }}>
-          SEE ALL FILES 
-        </Typography>
-      </Box>
-    </CardContent>
-  </SectionCard>
+    {/* Files link */}
+    <Box
+      sx={{ display: "flex", alignItems: "center", gap: 1, cursor: "pointer" }}
+      role="button"
+      aria-label="See all files"
+    >
+      <FolderIcon sx={{ color: "#1C1C1C", fontSize: 18 }} />
+      <Typography
+        sx={{
+          fontSize: 13,
+          fontWeight: 700,
+          lineHeight: "18px",
+          letterSpacing: "1px",
+          textTransform: "uppercase",
+          color: TOKENS.color.text.muted,
+          fontFamily: TOKENS.font.body,
+        }}
+      >
+        SEE ALL FILES
+      </Typography>
+    </Box>
+  </StyledCard>
 );
 
 const CostBreakdown: React.FC = () => (
-  <SectionCard sx={{ minHeight: 420, flex: 1 }}>
-    <CardContent sx={{ p: 3, position: "relative", flex: 1, display: "flex", flexDirection: "column" }}>
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 3 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Typography sx={{ fontSize: 16, fontWeight: 700, lineHeight: "24px", color: TOKENS.color.text.primary, fontFamily: TOKENS.font.heading }}>
-            Cost Breakdown
+  <StyledCard
+    title={
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Typography
+          sx={{
+            fontSize: 16,
+            fontWeight: 700,
+            lineHeight: "24px",
+            color: TOKENS.color.text.primary,
+            fontFamily: TOKENS.font.heading,
+          }}
+        >
+          Cost Breakdown
+        </Typography>
+        <KeyboardArrowDownIcon sx={{ color: "#1C1C1C", fontSize: 24 }} />
+      </Box>
+    }
+    actions={<PrimaryButton>Optimize</PrimaryButton>}
+  >
+    <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+      <DonutChart
+        slices={[
+          { value: 50, color: TOKENS.color.chart.materials, label: "Materials" },
+          { value: 25, color: TOKENS.color.chart.labor, label: "Labor" },
+          { value: 25, color: TOKENS.color.chart.freight, label: "Freight" },
+        ]}
+        centerTitle="$7.86"
+        centerSubtitle="per piece"
+      />
+    </Box>
+
+    {/* Legend */}
+    <Box sx={{ display: "flex", gap: 3, mt: 2, pl: 0.5 }}>
+      {[
+        { label: "Materials", color: TOKENS.color.chart.materials },
+        { label: "Labor", color: TOKENS.color.chart.labor },
+        { label: "Freight", color: TOKENS.color.chart.freight },
+      ].map((l) => (
+        <Box key={l.label} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <Box sx={{ width: 10, height: 10, borderRadius: "50%", bgcolor: l.color }} />
+          <Typography sx={{ fontSize: 13, fontWeight: 400, color: TOKENS.color.text.primary }}>
+            {l.label}
           </Typography>
-          <KeyboardArrowDownIcon sx={{ color: "#1C1C1C", fontSize: 24 }} />
         </Box>
-        <PrimaryButton>Optimize</PrimaryButton>
-      </Box>
-
-      <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
-        <DonutChart
-          slices={[
-            { value: 50, color: TOKENS.color.chart.materials, label: "Materials" },
-            { value: 25, color: TOKENS.color.chart.labor, label: "Labor" },
-            { value: 25, color: TOKENS.color.chart.freight, label: "Freight" },
-          ]}
-          centerTitle="$7.86"
-          centerSubtitle="per piece"
-        />
-      </Box>
-
-      <Box sx={{ flexGrow: 1 }} />
-
-      {/* Legend */}
-      <Box sx={{ display: "flex", gap: 3, mt: 2, pl: 0.5 }}>
-        {[
-          { label: "Materials", color: TOKENS.color.chart.materials },
-          { label: "Labor", color: TOKENS.color.chart.labor },
-          { label: "Freight", color: TOKENS.color.chart.freight },
-        ].map((l) => (
-          <Box key={l.label} sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Box sx={{ width: 10, height: 10, borderRadius: "50%", bgcolor: l.color }} />
-            <Typography sx={{ fontSize: 13, fontWeight: 400, color: TOKENS.color.text.primary }}>{l.label}</Typography>
-          </Box>
-        ))}
-      </Box>
-    </CardContent>
-  </SectionCard>
+      ))}
+    </Box>
+  </StyledCard>
 );
 
 const MilestonesCard: React.FC<{ items: Milestone[] }> = ({ items }) => (
-  <SectionCard sx={{ minHeight: 420, flex: 1 }}>
-    <CardContent sx={{ p: 0, flex: 1, display: "flex", flexDirection: "column", justifyContent: "stretch" }}>
-      {/* Header */}
-      <Box sx={{ p: 3, borderBottom: "1px solid #F0F0F0" }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1 }}>
-          <Typography sx={{ fontSize: 16, fontWeight: 700, lineHeight: "24px", color: TOKENS.color.text.primary, fontFamily: TOKENS.font.heading }}>
-            Milestones
-          </Typography>
-          <Button
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 0.5,
-              px: 2,
-              py: 1,
-              borderRadius: TOKENS.radius.sm,
-              bgcolor: TOKENS.color.surface,
-              color: TOKENS.color.brand.primary,
-              fontSize: 12,
-              fontWeight: 500,
-              lineHeight: "21px",
-              fontFamily: TOKENS.font.body,
-              textTransform: "none",
-              "&:hover": { bgcolor: "#F9F9F9" },
-            }}
-            endIcon={<ChevronRightIcon sx={{ fontSize: 14, color: TOKENS.color.brand.primary }} />}
-          >
-            See All Milestones
-          </Button>
-        </Box>
-        <Typography sx={{ fontSize: 13, fontWeight: 400, lineHeight: "22px", color: TOKENS.color.text.secondary, fontFamily: TOKENS.font.body }}>
+  <StyledCard
+    title={
+      <Box>
+        <Typography
+          sx={{
+            fontSize: 16,
+            fontWeight: 700,
+            lineHeight: "24px",
+            color: TOKENS.color.text.primary,
+            fontFamily: TOKENS.font.heading,
+          }}
+        >
+          Milestones
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: 13,
+            fontWeight: 400,
+            lineHeight: "22px",
+            color: TOKENS.color.text.secondary,
+            fontFamily: TOKENS.font.body,
+          }}
+        >
           Track progress across key phases.
         </Typography>
       </Box>
-
-      {/* List */}
-      <Box sx={{ flex: 1, overflowY: "auto", maxHeight: 300 }}>
-        {items.map((m, idx) => (
-          <Box
-            key={`${m.label}-${idx}`}
-            sx={{ display: "flex", alignItems: "center", minHeight: 80, px: 3, py: 2, borderBottom: idx < items.length - 1 ? "1px solid rgba(228, 228, 231, 0.70)" : "none" }}
-          >
-            <Box sx={{ minWidth: 120 }}>
-              <StatusChip label={m.status} />
-            </Box>
-            <Box sx={{ flex: 1, ml: 3 }}>
-              <Typography sx={{ fontSize: 13, fontWeight: 700, lineHeight: "22px", color: TOKENS.color.text.primary, fontFamily: TOKENS.font.body, mb: 0.5 }}>
-                {m.label}
-              </Typography>
-              <Typography sx={{ fontSize: 13, fontWeight: 500, lineHeight: "21px", color: TOKENS.color.text.secondary, fontFamily: TOKENS.font.body }}>
-                {m.desc}
-              </Typography>
-            </Box>
-            <Typography sx={{ fontSize: 13, fontWeight: 500, lineHeight: "21px", color: TOKENS.color.text.secondary, fontFamily: TOKENS.font.body, mr: 2 }}>
-              {m.date}
-            </Typography>
-            <MoreHorizIcon sx={{ color: "#A1A1AA", fontSize: 24 }} aria-label={`more options for ${m.label}`} />
+    }
+    actions={
+      <Button
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 0.5,
+          px: 2,
+          py: 1,
+          borderRadius: TOKENS.radius.sm,
+          bgcolor: TOKENS.color.surface,
+          color: TOKENS.color.brand.primary,
+          fontSize: 12,
+          fontWeight: 500,
+          lineHeight: "21px",
+          fontFamily: TOKENS.font.body,
+          textTransform: "none",
+          "&:hover": { bgcolor: "#F9F9F9" },
+        }}
+        endIcon={<ChevronRightIcon sx={{ fontSize: 14, color: TOKENS.color.brand.primary }} />}
+      >
+        See All Milestones
+      </Button>
+    }
+  >
+    <Box sx={{ flex: 1, overflowY: "auto", maxHeight: 300 }}>
+      {items.map((m, idx) => (
+        <Box
+          key={`${m.label}-${idx}`}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            minHeight: 80,
+            px: 1,
+            py: 2,
+            borderBottom:
+              idx < items.length - 1 ? "1px solid rgba(228, 228, 231, 0.70)" : "none",
+          }}
+        >
+          <Box sx={{ minWidth: 120 }}>
+            <StatusChip label={m.status} />
           </Box>
-        ))}
-      </Box>
-    </CardContent>
-  </SectionCard>
+          <Box sx={{ flex: 1, ml: 3 }}>
+            <Typography
+              sx={{
+                fontSize: 13,
+                fontWeight: 700,
+                lineHeight: "22px",
+                color: TOKENS.color.text.primary,
+                fontFamily: TOKENS.font.body,
+                mb: 0.5,
+              }}
+            >
+              {m.label}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: 13,
+                fontWeight: 500,
+                lineHeight: "21px",
+                color: TOKENS.color.text.secondary,
+                fontFamily: TOKENS.font.body,
+              }}
+            >
+              {m.desc}
+            </Typography>
+          </Box>
+          <Typography
+            sx={{
+              fontSize: 13,
+              fontWeight: 500,
+              lineHeight: "21px",
+              color: TOKENS.color.text.secondary,
+              fontFamily: TOKENS.font.body,
+              mr: 2,
+            }}
+          >
+            {m.date}
+          </Typography>
+          <MoreHorizIcon
+            sx={{ color: "#A1A1AA", fontSize: 24 }}
+            aria-label={`more options for ${m.label}`}
+          />
+        </Box>
+      ))}
+    </Box>
+  </StyledCard>
 );
 
 const TasksTable: React.FC = () => (
-  <SectionCard sx={{ minHeight: 420, flex: 1 }}>
-    <CardContent sx={{ p: 3, flex: 1, display: "flex", flexDirection: "column", justifyContent: "stretch" }}>
-      <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
-        <Typography fontFamily={TOKENS.font.heading} fontWeight={700} fontSize={19}>
-          Tasks
-        </Typography>
-        <Box display="flex" alignItems="center" gap={2}>
-          {[
-            { label: "Assignee" },
-            { label: "Status" },
-          ].map((f) => (
-            <Button key={f.label} variant="text" sx={{ color: "#222", fontWeight: 600, fontSize: 16, px: 1, textTransform: "none", "&:hover": { bgcolor: "#f5f5f5" } }} endIcon={<KeyboardArrowDownIcon sx={{ fontSize: 24, color: "#222" }} />}>
-              {f.label}
-            </Button>
-          ))}
-        </Box>
+  <StyledCard
+    title={
+      <Typography fontFamily={TOKENS.font.heading} fontWeight={700} fontSize={19}>
+        Tasks
+      </Typography>
+    }
+    actions={
+      <Box display="flex" alignItems="center" gap={2}>
+        {[
+          { label: "Assignee" },
+          { label: "Status" },
+        ].map((f) => (
+          <Button
+            key={f.label}
+            variant="text"
+            sx={{
+              color: "#222",
+              fontWeight: 600,
+              fontSize: 16,
+              px: 1,
+              textTransform: "none",
+              "&:hover": { bgcolor: "#f5f5f5" },
+            }}
+            endIcon={<KeyboardArrowDownIcon sx={{ fontSize: 24, color: "#222" }} />}
+          >
+            {f.label}
+          </Button>
+        ))}
       </Box>
-
-      <Box sx={{ flex: 1, overflowY: "auto", maxHeight: 300 }}>
-        <TableContainer component={Paper} sx={{ boxShadow: "none", border: "none", bgcolor: "transparent" }}>
-          <Table size="small" aria-label="tasks table">
-            <TableHead>
-              <TableRow>
-                {["Name", "Assignee", "Due date", "Status", "Progress"].map((h) => (
-                  <TableCell key={h} sx={{ fontWeight: 700, border: "none", fontSize: 15 }}>
-                    {h}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {[
-                { name: "Set material quotes", due: "May 25, 2023", status: "Completed", pct: 100 },
-                { name: "Complete compliance work", due: "Jun 20, 2023", status: "Delayed", pct: 38 },
-                { name: "Initiate bank transfer", due: "July 13, 2023", status: "At risk", pct: 48 },
-                { name: "Approve material change", due: "Dec 20, 2023", status: "Completed", pct: 100 },
-                { name: "Approve upper change", due: "Mar 15, 2024", status: "In Progress", pct: 50 },
-              ].map((row, i) => (
-                <TableRow key={`${row.name}-${i}`}>
-                  <TableCell sx={{ border: "none", fontSize: 15 }}>{row.name}</TableCell>
-                  <TableCell sx={{ border: "none", fontSize: 15 }}>
-                    <Box display="flex" alignItems="center">
-                      <Avatar sx={{ width: 28, height: 28, mr: 1 }} src="https://api.builder.io/api/v1/image/assets/TEMP/placeholder-avatar" alt="Assignee avatar" />
-                      <Typography fontSize={15} fontWeight={700} fontFamily={TOKENS.font.body}>
-                        Arlene McCoy
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell sx={{ border: "none", fontSize: 15 }}>{row.due}</TableCell>
-                  <TableCell sx={{ border: "none", fontSize: 15 }}>
-                    <StatusChip label={row.status} />
-                  </TableCell>
-                  <TableCell sx={{ border: "none", fontSize: 15 }}>
-                    <Chip
-                      label={`${row.pct}%`}
-                      sx={{
-                        bgcolor: row.pct === 100 ? "#E6F4EA" : row.pct >= 50 ? "#FEF9C3" : "#FEE4E2",
-                        color: row.pct === 100 ? "#1DB06B" : row.pct >= 50 ? "#F59E0B" : "#D92D20",
-                        fontWeight: 700,
-                        fontSize: 14,
-                        borderRadius: "50px",
-                      }}
-                    />
-                  </TableCell>
-                </TableRow>
+    }
+  >
+    <Box sx={{ flex: 1, overflowY: "auto", maxHeight: 300 }}>
+      <TableContainer component={Paper} sx={{ boxShadow: "none", border: "none", bgcolor: "transparent" }}>
+        <Table size="small" aria-label="tasks table">
+          <TableHead>
+            <TableRow>
+              {["Name", "Assignee", "Due date", "Status", "Progress"].map((h) => (
+                <TableCell key={h} sx={{ fontWeight: 700, border: "none", fontSize: 15 }}>
+                  {h}
+                </TableCell>
               ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {[
+              { name: "Set material quotes", due: "May 25, 2023", status: "Completed", pct: 100 },
+              { name: "Complete compliance work", due: "Jun 20, 2023", status: "Delayed", pct: 38 },
+              { name: "Initiate bank transfer", due: "July 13, 2023", status: "At risk", pct: 48 },
+              { name: "Approve material change", due: "Dec 20, 2023", status: "Completed", pct: 100 },
+              { name: "Approve upper change", due: "Mar 15, 2024", status: "In Progress", pct: 50 },
+            ].map((row, i) => (
+              <TableRow key={`${row.name}-${i}`}>
+                <TableCell sx={{ border: "none", fontSize: 15 }}>{row.name}</TableCell>
+                <TableCell sx={{ border: "none", fontSize: 15 }}>
+                  <Box display="flex" alignItems="center">
+                    <Avatar
+                      sx={{ width: 28, height: 28, mr: 1 }}
+                      src="https://api.builder.io/api/v1/image/assets/TEMP/placeholder-avatar"
+                      alt="Assignee avatar"
+                    />
+                    <Typography fontSize={15} fontWeight={700} fontFamily={TOKENS.font.body}>
+                      Arlene McCoy
+                    </Typography>
+                  </Box>
+                </TableCell>
+                <TableCell sx={{ border: "none", fontSize: 15 }}>{row.due}</TableCell>
+                <TableCell sx={{ border: "none", fontSize: 15 }}>
+                  <StatusChip label={row.status} />
+                </TableCell>
+                <TableCell sx={{ border: "none", fontSize: 15 }}>
+                  <Chip
+                    label={`${row.pct}%`}
+                    sx={{
+                      bgcolor:
+                        row.pct === 100 ? "#E6F4EA" : row.pct >= 50 ? "#FEF9C3" : "#FEE4E2",
+                      color:
+                        row.pct === 100 ? "#1DB06B" : row.pct >= 50 ? "#F59E0B" : "#D92D20",
+                      fontWeight: 700,
+                      fontSize: 14,
+                      borderRadius: "50px",
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
 
-      <Box mt={3} display="flex" justifyContent="flex-end">
-        <PrimaryButton>Create Task</PrimaryButton>
-      </Box>
-    </CardContent>
-  </SectionCard>
+    <Box display="flex" justifyContent="flex-end">
+      <PrimaryButton>Create Task</PrimaryButton>
+    </Box>
+  </StyledCard>
 );
 
 /**

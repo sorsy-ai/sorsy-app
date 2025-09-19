@@ -15,9 +15,6 @@ export default function Dashboard() {
         }}
       >
         <Box mb={3}>
-          <Typography variant="h4" fontWeight={600} fontSize={24} mb={2}>
-            Hi Mariana
-          </Typography>
           <DashboardOverview />
         </Box>
       </Box>
