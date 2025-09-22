@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { DashboardOverview } from './components/DashboardOverview'
 import { RightSidebar } from './components/RightSidebar'
 

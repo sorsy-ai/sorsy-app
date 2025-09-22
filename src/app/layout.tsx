@@ -191,8 +191,6 @@ export default function RootLayout({
           >
             <Box
               sx={{
-                width: '100%',
-                maxWidth: 700,
                 px: { xs: 1, sm: 2, md: 2 },
               }}
             >

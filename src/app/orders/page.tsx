@@ -1,11 +1,18 @@
-import { Typography, Container } from '@mui/material'
+'use client';
+
+import * as React from 'react';
+import OrdersTable from './ordersTable';
+import { Box } from '@mui/system';
 
 export default function OrdersPage() {
+ 
   return (
-    <Container>
-      <Typography variant="h4" fontWeight="medium" mb={4}>
-        Orders
-      </Typography>
-    </Container>
+   <>
+  <OrdersTable openQuote={true} />
+  <Box mt={4}>
+    <OrdersTable openQuote={false} />
+  </Box>
+</>
+
   );
 }

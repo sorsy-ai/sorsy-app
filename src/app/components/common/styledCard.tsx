@@ -21,9 +21,6 @@ type StyledCardProps = {
   /** Number of columns for grid layout (or responsive template string) */
   actionsColumns?: number | string;
 
-  /** Compact paddings */
-  dense?: boolean;
-
   /** Show/Hide header divider space via margin only */
   hideHeader?: boolean;
 
@@ -36,12 +33,10 @@ export function StyledCard({
   actions,
   actionsLayout = "row",
   actionsColumns = 2,
-  dense = false,
   hideHeader = false,
   children,
 }: StyledCardProps) {
   const hasHeader = !!(title || subtitle || actions);
-  const pad = dense ? 2 : 3;
 
   const renderActions = () => {
     if (!actions) return null;
@@ -138,23 +133,3 @@ export function StyledCard({
     </Card>
   );
 }
-// import { Card, CardContent, Typography } from '@mui/material';
-// import type { ReactNode } from 'react';
-
-// type StyledCardProps = {
-//   cardTitle: ReactNode;          // allow string or nodes
-//   children?: ReactNode;          // optional content inside the card
-// };
-
-// export function StyledCard({ cardTitle, children }: StyledCardProps) {
-//   return (
-//     <Card sx={{ borderRadius: 2, mb: 2, boxShadow: 'none', border: '1px solid #E4E4E7' }}>
-//       <CardContent sx={{ p: 2 }}>
-//         <Typography fontWeight={700} fontSize={17} mb={0.5}>
-//           {cardTitle}
-//         </Typography>
-//         {children}
-//       </CardContent>
-//     </Card>
-//   );
-// }
