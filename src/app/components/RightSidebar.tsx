@@ -55,7 +55,6 @@ export function RightSidebar() {
         position: 'fixed',
         top: 64,
         right: 0,
-        width: 320,
         height: 'calc(100vh - 64px)',
         bgcolor: '#fff',
         borderLeft: '1px solid #eee',
