@@ -6,7 +6,6 @@ import {
   Typography,
   Button,
   Chip,
-  Avatar,
   Rating,
   Container,
   IconButton,

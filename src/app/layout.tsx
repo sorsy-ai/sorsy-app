@@ -1,3 +1,5 @@
+"use client";
+
 import { Drawer, List, ListItem, ListItemText, Box, Typography, Button, IconButton, InputBase, Avatar, Badge } from '@mui/material';
 import Link from 'next/link';
 import SorsyLogoImg from './components/desktop/SorsyLogoImg';
@@ -9,12 +11,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Sorsy',
-  description: 'Sorsy - Your Project Management Solution'
-}
+import { useRouter } from 'next/navigation';
+import { useRef } from 'react';
 
 const navItems = [
   { text: 'Dashboard', href: '/', icon: <HomeOutlinedIcon sx={{ color: '#222', mr: 1, fontSize: 22 }} /> },
@@ -36,6 +34,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Handler for Enter key in search
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      const value = inputRef.current?.value?.trim();
+      if (value) {
+        router.push(`/search?q=${encodeURIComponent(value)}`);
+      }
+    }
+  };
+
   return (
     <html lang="en">
       <body>
@@ -62,7 +73,12 @@ export default function RootLayout({
           <Box sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
             <Box sx={{ bgcolor: '#f5f5f5', borderRadius: 2, px: 1.5, py: 0.25, display: 'flex', alignItems: 'center', width: 240 }}>
               <SearchIcon sx={{ color: '#888', mr: 1, fontSize: 20 }} />
-              <InputBase placeholder="Type to search" sx={{ width: '100%', fontSize: 14 }} />
+              <InputBase
+                placeholder="Type to search"
+                sx={{ width: '100%', fontSize: 14 }}
+                inputRef={inputRef}
+                onKeyDown={handleSearchKeyDown}
+              />
             </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
